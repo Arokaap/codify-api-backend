@@ -1,33 +1,43 @@
+require('dotenv').config()
+require('./mongo')
+const Note = require('./models/Note')
+const notFound = require('./middleware/notFound.js')
 const express = require('express')
 const logger = require('./loggerMiddleware')
 const cors = require('cors')
+const handleErrors = require('./middleware/handleErrors')
+const Sentry = require('@sentry/node')
+const Tracing = require('@sentry/tracing')
 const app = express()
 
 app.use(cors())
 app.use(express.json())
+app.use('/images', express.static('images'))
+
+Sentry.init({
+  dsn: 'https://fb564bfcd3ed468a9837e0f13df8c757@o4505096630566912.ingest.sentry.io/4505096645443584',
+  integrations: [
+    // enable HTTP calls tracing
+    new Sentry.Integrations.Http({ tracing: true }),
+    // enable Express.js middleware tracing
+    new Tracing.Integrations.Express({ app }),
+    // Automatically instrument Node.js libraries and frameworks
+    ...Sentry.autoDiscoverNodePerformanceMonitoringIntegrations()
+  ],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0
+})
+
+// RequestHandler creates a separate execution context, so that all
+// transactions/spans/breadcrumbs are isolated across requests
+app.use(Sentry.Handlers.requestHandler())
+// TracingHandler creates a trace for every incoming request
+app.use(Sentry.Handlers.tracingHandler())
 
 app.use(logger)
-
-let notes = [
-  {
-    id: 1,
-    content: 'Me tengo que suscribir a @midudev en YouTube y Twich',
-    date: '2019-05-30T17:30:31.098Z',
-    important: true
-  },
-  {
-    id: 2,
-    content: 'Tengo que estudiar las clases del FullStack Bootcamp',
-    date: '2019-05-30T18:39:34.091Z',
-    important: false
-  },
-  {
-    id: 3,
-    content: 'Repasar los retos de JS de midudev',
-    date: '2019-05-30T19:20:14.298Z',
-    important: true
-  }
-]
 
 // const app = http.createServer((request, response) => {
 //   response.writeHead(200, { "content-type": "application/json" });
@@ -39,21 +49,41 @@ app.get('/', (request, response) => {
 })
 
 app.get('/api/notes', (request, response) => {
-  response.json(notes)
+  Note.find({})
+    .then((notes) => {
+      response.json(notes)
+    })
 })
 
-app.get('/api/notes/:id', (request, response) => {
-  const id = Number(request.params.id)
-  const note = notes.find((note) => note.id === id)
-
-  note ? response.json(note) : response.status(404).end()
+app.get('/api/notes/:id', (request, response, next) => {
+  const { id } = request.params
+  Note.findById(id).then(note => {
+    note ? response.json(note) : response.status(400).end()
+  }).catch(err => {
+    next(err)
+  })
 })
 
-app.delete('/api/notes/:id', (request, response) => {
-  const id = Number(request.params.id)
-  notes = notes.filter((note) => note.id !== id)
+app.put('/api/notes/:id', (request, response, next) => {
+  const { id } = request.params
+  const note = request.body
 
-  response.status(204).end()
+  const newNoteInfo = {
+    content: note.content,
+    important: note.important
+  }
+
+  Note.findByIdAndUpdate(id, newNoteInfo, { new: true })
+    .then(result => {
+      response.json(result)
+    })
+})
+
+app.delete('/api/notes/:id', (request, response, next) => {
+  const { id } = request.params
+  Note.findByIdAndRemove(id).then(result => {
+    response.status(204).end()
+  }).catch(error => next(error))
 })
 
 app.post('/api/notes', (request, response) => {
@@ -65,28 +95,25 @@ app.post('/api/notes', (request, response) => {
     })
   }
 
-  const ids = notes.map((note) => note.id)
-  const maxId = Math.max(...ids)
-
-  const newNote = {
-    id: maxId + 1,
+  const newNote = new Note({
     content: note.content,
-    important: typeof note.important !== 'undefined' ? note.important : false,
+    important: note.important !== 'undefined' ? note.important : false,
     date: new Date().toISOString()
-  }
+  })
 
-  notes = [...notes, newNote]
-
-  response.response(201).json(newNote)
-})
-
-app.use((request, response) => {
-  response.status(404).json({
-    error: 'Not found'
+  newNote.save().then(savedNote => {
+    response.json(savedNote)
   })
 })
 
-const PORT = process.env.PORT || 3001
+// The error handler must be before any other error middleware and after all controllers
+
+app.use(notFound)
+
+app.use(Sentry.Handlers.errorHandler())
+app.use(handleErrors)
+
+const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
