@@ -4,27 +4,37 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
     "lint": "eslint .",
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "cross-env NODE_ENV=production node index.js",
+    "test": "cross-env NODE_ENV=test jest --verbose"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "jest": "29.5.0",
     "nodemon": "2.0.22",
     "standard": "17.0.0"
   },
   "dependencies": {
-    "@sentry/node": "^7.50.0",
-    "@sentry/tracing": "^7.50.0",
+    "@sentry/node": "7.50.0",
+    "@sentry/tracing": "7.50.0",
+    "bcrypt": "^5.1.0",
     "cors": "2.8.5",
+    "cross-env": "7.0.3",
     "dotenv": "16.0.3",
     "express": "4.18.2",
-    "mongoose": "7.1.0"
+    "mongoose": "7.1.0",
+    "mongoose-unique-validator": "^4.0.0"
   },
   "eslintConfig": {
-    "extends": "./node_modules/standard/eslintrc.json"
+    "extends": "./node_modules/standard/eslintrc.json",
+    "env": {
+      "jest": true
+    }
+  },
+  "jest": {
+    "testEnviroment": "node"
   }
 }

@@ -1,6 +1,7 @@
 require('dotenv').config()
 require('./mongo')
 const Note = require('./models/Note')
+const User = require('./models/User')
 const notFound = require('./middleware/notFound.js')
 const express = require('express')
 const logger = require('./loggerMiddleware')
@@ -9,6 +10,7 @@ const handleErrors = require('./middleware/handleErrors')
 const Sentry = require('@sentry/node')
 const Tracing = require('@sentry/tracing')
 const app = express()
+const usersRouter = require('./controllers/users')
 
 app.use(cors())
 app.use(express.json())
@@ -48,11 +50,12 @@ app.get('/', (request, response) => {
   response.send('<h1>Hello World</h1>')
 })
 
-app.get('/api/notes', (request, response) => {
-  Note.find({})
-    .then((notes) => {
-      response.json(notes)
-    })
+app.get('/api/notes', async (request, response) => {
+  const notes = await Note.find({}).populate('user', {
+    username: 1,
+    name: 1
+  })
+  response.json(notes)
 })
 
 app.get('/api/notes/:id', (request, response, next) => {
@@ -86,27 +89,45 @@ app.delete('/api/notes/:id', (request, response, next) => {
   }).catch(error => next(error))
 })
 
-app.post('/api/notes', (request, response) => {
-  const note = request.body
+app.post('/api/notes', async (request, response) => {
+  const {
+    content,
+    important = false,
+    userId
+  } = request.body
 
-  if (!note || !note.content) {
+  const user = await User.findById(userId)
+
+  if (!content) {
     return response.status(400).json({
       error: 'note.content is missing'
     })
   }
 
   const newNote = new Note({
-    content: note.content,
-    important: note.important !== 'undefined' ? note.important : false,
-    date: new Date().toISOString()
+    content,
+    important,
+    date: new Date(),
+    user: user._id
   })
 
-  newNote.save().then(savedNote => {
+  try {
+    const savedNote = await newNote.save()
+
+    user.notes = user.notes.concat(savedNote._id)
+    await user.save()
+
     response.json(savedNote)
-  })
+  } catch (error) {
+    console.error(error)
+  }
+
+  // newNote.save().then(savedNote => {
+  //   response.json(savedNote)
+  // })
 })
 
-// The error handler must be before any other error middleware and after all controllers
+app.use('/api/users', usersRouter)
 
 app.use(notFound)
 
