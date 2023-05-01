@@ -1,0 +1,8 @@
+PATCH http://localhost:3001/api/lessons/644fc76597a341a1b37d7a18/update/644fce728215788550b4e0b1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NGZiZDExZDQ1MzgxMDBjNDMxNzMzOCIsInVzZXJOYW1lIjoiRXN0cmVsbGEiLCJpYXQiOjE2ODI5NTYwOTIsImV4cCI6MTY4MzU2MDg5Mn0.UQzavzIXA2_AeX4OpIDl8PJFs_4RZT26eNniNR8vyKY
+
+{
+  "description":"leccion actualizada",
+  "title":"prueba"
+}

@@ -1,0 +1,1 @@
+GET http://localhost:3001/api/categories/644fe46b14225c5c0564e764

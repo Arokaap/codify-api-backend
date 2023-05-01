@@ -1,7 +1,0 @@
-PUT http://localhost:3001/api/notes/644c45d613d92331492d66ad
-Content-Type: application/json
-
-{
-  "content":"Actualizada segundaa",
-  "important":true
-}

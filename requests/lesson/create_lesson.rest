@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/lessons/644fedcfeda2a559ca782323
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NGZiZDExZDQ1MzgxMDBjNDMxNzMzOCIsInVzZXJOYW1lIjoiRXN0cmVsbGEiLCJpYXQiOjE2ODI5NTM5NDUsImV4cCI6MTY4MzU1ODc0NX0.N3y15y3HgdDccilYP05hZts3Eg_zuREIzPOZ3vU0Vg8
+
+{
+  "title": "Leccion 1",
+  "description": "Descripcion 1",
+  "url": "curso.jpg"
+}

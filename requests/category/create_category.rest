@@ -1,0 +1,8 @@
+POST http://localhost:3001/api/categories
+Content-Type: application/json
+
+{
+  "title": "Categoria 3",
+  "description": "Descripcion 3",
+  "icon": "curso.jpg"
+}

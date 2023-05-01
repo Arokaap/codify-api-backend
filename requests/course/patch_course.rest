@@ -1,0 +1,7 @@
+PATCH http://localhost:3001/api/courses/644fd44e76841903d0e595f1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NGZhYzAwZjRmNGYwOThkMTI3MzZjNCIsInVzZXJOYW1lIjoiQXJva2EiLCJpYXQiOjE2ODI5NTM1ODgsImV4cCI6MTY4MzU1ODM4OH0.TDt04KmOH8mdl_nsRjZNjij5qpSemVvzEu_n2f1QcGQ
+
+{
+  "title":"Actualizado"
+}
