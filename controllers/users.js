@@ -3,6 +3,7 @@ const usersRouter = require('express').Router()
 const User = require('../models/User')
 const Course = require('../models/Course')
 const userExtractor = require('../middleware/userExtractor')
+const jwt = require('jsonwebtoken')
 const sameUser = require('../middleware/sameUser')
 
 // GET ALL
@@ -100,7 +101,25 @@ usersRouter.post('/', async (request, response, next) => {
 
   try {
     const savedUser = await user.save()
-    response.json(savedUser)
+
+    const userForToken = {
+      id: savedUser._id,
+      userName: savedUser.userName
+    }
+
+    const token = jwt.sign(
+      userForToken,
+      process.env.SECRET,
+      {
+        expiresIn: 60 * 60 * 24 * 7
+      }
+    )
+
+    response.send({
+      userName: user.userName,
+      userId: user.id,
+      token
+    })
   } catch (error) { next(error) }
 })
 
