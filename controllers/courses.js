@@ -62,7 +62,7 @@ coursesRouter.patch('/:idCourse', userExtractor, sameCreator, async (request, re
 // CREATE COURSE
 coursesRouter.post('/', userExtractor, async (request, response, next) => {
   const { body } = request
-  const { title, description, categoryId } = body
+  const { title, description, categoryId, image } = body
 
   const creator = await User.findById(request.userId)
   const category = await Category.findById(categoryId)
@@ -71,6 +71,7 @@ coursesRouter.post('/', userExtractor, async (request, response, next) => {
     title,
     description,
     creationDate: new Date(),
+    image,
     category: category._id,
     creator: creator._id
   })

@@ -1,9 +1,11 @@
-POST http://localhost:3001/api/courses
+POST http://localhost:3000/api/courses
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NGZiZDExZDQ1MzgxMDBjNDMxNzMzOCIsInVzZXJOYW1lIjoiRXN0cmVsbGEiLCJpYXQiOjE2ODI5NTk2NzEsImV4cCI6MTY4MzU2NDQ3MX0.IOKDeFC9kgBll18WULTXuCi0YMaZ2BIhxdKyjYFQRs8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NTdiZDc1Yjk4MTJiZTRhZmI2NjYyYyIsInVzZXJOYW1lIjoiQXJva2EiLCJpYXQiOjE2ODU5OTEwMzQsImV4cCI6MTY4NjU5NTgzNH0.3dDcR3R21sAbLjm6wMAHbiaFTtsSSQJI9aRH8O6KMgo
 
 {
-  "title": "Curso de desarrollo frontend 222",
-  "description": " descripcion curso",
-  "categoryId": "644fe46b14225c5c0564e764"
+  "title": "Curso de GIT",
+  "description": " descripcion GIT",
+  "image": "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+  "categoryId": "647e2f178cf82fb2c810252f",
+  "creator": "6457bd75b9812be4afb6662c"
 }

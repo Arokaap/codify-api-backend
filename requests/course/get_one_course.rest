@@ -1,1 +1,1 @@
-GET http://localhost:3001/api/courses/644fc76597a341a1b37d7a18
+GET http://localhost:3000/api/courses/647e360a07ffe8dbd50d64be

@@ -28,7 +28,7 @@ lessonsRouter.get('/:idLesson', async (request, response, next) => {
 // CREATE LESSON
 lessonsRouter.post('/:idCourse', userExtractor, sameCreator, async (request, response, next) => {
   const { body } = request
-  const { title, description, url } = body
+  const { title, description, url, image } = body
   const { idCourse } = request.params
 
   try {
@@ -38,6 +38,7 @@ lessonsRouter.post('/:idCourse', userExtractor, sameCreator, async (request, res
       title,
       description,
       url,
+      image,
       course: course._id
     })
 
@@ -67,6 +68,10 @@ lessonsRouter.patch('/:idCourse/update/:idLesson', userExtractor, sameCreator, a
   }
   if ('url' in lessonUpdates) {
     newLessonInfo.url = lessonUpdates.url
+  }
+
+  if ('image' in lessonUpdates) {
+    newLessonInfo.image = lessonUpdates.image
   }
 
   try {

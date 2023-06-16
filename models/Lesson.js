@@ -9,7 +9,8 @@ const lessonSchema = new Schema({
     required: true,
     ref: 'Course'
   },
-  url: String
+  url: String,
+  image: String
 })
 
 lessonSchema.set('toJSON', {

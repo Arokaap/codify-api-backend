@@ -5,6 +5,7 @@ const courseSchema = new Schema({
   title: String,
   description: String,
   creationDate: Date,
+  image: String,
   category: {
     type: Schema.Types.ObjectId,
     required: true,

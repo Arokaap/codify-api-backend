@@ -1,3 +1,3 @@
-PUT http://localhost:3001/api/users/644fac00f4f4f098d12736c4/enroll/644fedcfeda2a559ca782323
+PUT http://localhost:3000/api/users/644fac00f4f4f098d12736c4/enroll/644fedcfeda2a559ca782323
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NGZhYzAwZjRmNGYwOThkMTI3MzZjNCIsInVzZXJOYW1lIjoiQXJva2EiLCJpYXQiOjE2ODI5NTk4MzQsImV4cCI6MTY4MzU2NDYzNH0.uExdcDC1rpLRa06wZyRzlnG655E6iI5W1UDpqqoZ3l0
