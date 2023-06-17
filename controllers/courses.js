@@ -27,7 +27,15 @@ coursesRouter.get('/:idCourse', async (request, response, next) => {
   const { idCourse } = request.params
   try {
     const course = await Course.findById(idCourse)
-    course ? response.json(course) : response.status(404).end()
+      .populate('creator', { userName: 1, firstName: 1 })
+      .populate('students', { userName: 1, firstName: 1, avatar: 1 })
+      .populate('lessons', { title: 1, description: 1, url: 1 })
+
+    if (course) {
+      response.json(course)
+    } else {
+      response.status(404).end()
+    }
   } catch (err) {
     next(err)
   }

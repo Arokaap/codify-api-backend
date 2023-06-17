@@ -24,7 +24,7 @@ exports.uploadImageUser = async (req, res, next) => {
 
     const updatedUser = await User.findByIdAndUpdate(
       idUser,
-      { image: savedUpload.url },
+      { avatar: savedUpload.url },
       { new: true, runValidators: true, context: 'query' }
     )
 

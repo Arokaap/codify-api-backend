@@ -65,6 +65,18 @@ usersRouter.patch('/:idUser', userExtractor, sameUser, async (request, response,
   if ('avatar' in userUpdates) {
     newUserInfo.avatar = userUpdates.avatar
   }
+  if ('description' in userUpdates) {
+    newUserInfo.description = userUpdates.description
+  }
+  if ('jobPosition' in userUpdates) {
+    newUserInfo.jobPosition = userUpdates.jobPosition
+  }
+  if ('centerStudy' in userUpdates) {
+    newUserInfo.centerStudy = userUpdates.centerStudy
+  }
+  if ('ubication' in userUpdates) {
+    newUserInfo.ubication = userUpdates.ubication
+  }
 
   try {
     const updatedUser = await User.findByIdAndUpdate(idUser, newUserInfo, { new: true, runValidators: true, context: 'query' })
@@ -95,7 +107,12 @@ usersRouter.post('/', async (request, response, next) => {
     firstName,
     lastName,
     email,
-    avatar: null,
+    avatar: '',
+    registrationDate: new Date(),
+    description: '',
+    jobPosition: '',
+    centerStudy: '',
+    ubication: '',
     passwordHash
   })
 

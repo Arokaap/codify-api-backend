@@ -1,1 +1,1 @@
-GET http://localhost:3000/api/users/6457bd75b9812be4afb6662c
+GET http://localhost:3000/api/users/6488d34974fd5c19d1dc99e5

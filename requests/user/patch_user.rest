@@ -1,7 +1,10 @@
-PATCH http://localhost:3001/api/users/644fd16ae36b80b202e8de52
+PATCH http://localhost:3000/api/users/6488d34974fd5c19d1dc99e5
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NGZkMTZhZTM2YjgwYjIwMmU4ZGU1MiIsInVzZXJOYW1lIjoiUGVwaXRvIiwiaWF0IjoxNjgyOTUyNTc3LCJleHAiOjE2ODM1NTczNzd9.0PQhkaaLpqI9soshOOzs0eNWjRSo4JADA1vcPO2ckdA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODhkMzQ5NzRmZDVjMTlkMWRjOTllNSIsInVzZXJOYW1lIjoiQWFyw7NuIEFyYWfDs24gQXJvY2EiLCJpYXQiOjE2ODY2ODg1ODUsImV4cCI6MTY4NzI5MzM4NX0.o1Kib7inF5HaIv452p0hpeER5AhnUgRnfQ4-Gwe3faY
 
 {
-  "email":"a123sd@gmail.com"
+  "userName": "Aarón Aragón Arocasss",
+  "email": "aa@gmail.com",
+  "firstName": "Aarón",
+  "lastName": "Aragón Aroca"
 }

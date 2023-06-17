@@ -17,6 +17,10 @@ const userSchema = new Schema({
   passwordHash: String,
   registrationDate: Date,
   avatar: String,
+  description: String,
+  jobPosition: String,
+  centerStudy: String,
+  ubication: String,
   enrolledCourses: [{
     type: Schema.Types.ObjectId,
     ref: 'Course'
