@@ -10,7 +10,8 @@ const lessonSchema = new Schema({
     ref: 'Course'
   },
   url: String,
-  image: String
+  image: String,
+  creationDate: Date
 })
 
 lessonSchema.set('toJSON', {

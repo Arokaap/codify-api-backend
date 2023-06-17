@@ -46,6 +46,9 @@ coursesRouter.patch('/:idCourse', userExtractor, sameCreator, async (request, re
   if ('description' in courseUpdates) {
     newCourseInfo.description = courseUpdates.description
   }
+  if ('categoryId' in courseUpdates) {
+    newCourseInfo.category = courseUpdates.categoryId
+  }
 
   try {
     const updatedCourse = await Course.findByIdAndUpdate(idCourse, newCourseInfo, { new: true, runValidators: true, context: 'query' })

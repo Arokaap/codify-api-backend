@@ -39,6 +39,7 @@ lessonsRouter.post('/:idCourse', userExtractor, sameCreator, async (request, res
       description,
       url,
       image,
+      creationDate: new Date(),
       course: course._id
     })
 

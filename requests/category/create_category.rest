@@ -2,7 +2,7 @@ POST http://localhost:3000/api/categories
 Content-Type: application/json
 
 {
-  "title": "Categoria 3",
-  "description": "Descripcion 3",
-  "icon": "curso.jpg"
+  "title": "Desarrollo de Software",
+  "description": "Explora las bases de la programación con lenguajes como Python, Java, C++, y más. Perfecto para aquellos que buscan crear software robusto y eficiente.",
+  "icon": "/img/category3.png"
 }
