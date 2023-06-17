@@ -16,12 +16,7 @@ const lessonsRouter = require('./controllers/lessons')
 const routes = require('./routes/uploadRoute')
 const bodyParser = require('body-parser')
 
-const corsOptions = {
-  origin: 'https://codifyapp.netlify.app',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
-
-app.use(cors(corsOptions))
+app.use(cors())
 app.use(express.json())
 app.use('/images', express.static('images'))
 
